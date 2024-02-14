@@ -1,0 +1,9 @@
+{
+    "name": "InfiniteShotgunReload",
+    "version_number": "1.0.0",
+    "website_url": "",
+    "description": "This mod allows you to load more than two shells in a shotgun.",
+    "dependencies": [
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}
