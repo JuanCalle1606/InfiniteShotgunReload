@@ -4,12 +4,13 @@ using HarmonyLib;
 using UnityEngine;
 namespace InfiniteShotgunReload;
 
+[HarmonyPatch(typeof(ShotgunItem))]
 public class ShotgunPatch
 {
 	/**
 	 * Patch to alllow to reload the shotgun when it has 2 bullets already loaded.
 	 */
-	[HarmonyPatch(typeof(ShotgunItem), nameof(ShotgunItem.ItemInteractLeftRight))]
+	[HarmonyPatch(nameof(ShotgunItem.ItemInteractLeftRight))]
 	[HarmonyPostfix]
 	public static void ItemInteractLeftRightPatch(ShotgunItem __instance, bool right)
 	{
@@ -17,23 +18,22 @@ public class ShotgunPatch
 			__instance.StartReloadGun();
 	}
 
-	[HarmonyPatch(typeof(ShotgunItem), nameof(ShotgunItem.ShootGun))]
+	[HarmonyPatch(nameof(ShotgunItem.ShootGun))]
 	[HarmonyPrefix]
 	[HarmonyPriority(Priority.High)]
-	public static bool SaveShellsPatch(ShotgunItem __instance, out int __state)
+	public static void SaveShellsPatch(ShotgunItem __instance, out int __state)
 	{
 		__state = __instance.shellsLoaded;
-		return true;
 	}
 
-	[HarmonyPatch(typeof(ShotgunItem), nameof(ShotgunItem.ShootGun))]
+	[HarmonyPatch(nameof(ShotgunItem.ShootGun))]
 	[HarmonyPostfix]
 	public static void ShootGunPatch(ShotgunItem __instance, int __state)
 	{
 		__instance.shellsLoaded = Math.Max(0, __state - 1);
 	}
 
-	[HarmonyPatch(typeof(ShotgunItem), nameof(ShotgunItem.reloadGunAnimation))]
+	[HarmonyPatch(nameof(ShotgunItem.reloadGunAnimation))]
 	[HarmonyPrefix]
 	public static bool ReloadGunAnimationPatch(ShotgunItem __instance, ref IEnumerator __result)
 	{

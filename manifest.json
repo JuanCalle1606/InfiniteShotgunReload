@@ -1,6 +1,6 @@
 {
     "name": "InfiniteShotgunReload",
-    "version_number": "1.0.0",
+    "version_number": "1.1.0",
     "website_url": "",
     "description": "This mod allows you to load more than two shells in a shotgun.",
     "dependencies": [
